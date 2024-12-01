@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building LunaGC</title>
+    <link rel="icon" href="./src/DALL-E-Title.webp" type="image/webp">
+    <style>
+        body {
+            background-image: url('./src/wallpaperflare.com_wallpaper_2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 3rem;
+            color: #FFC0CB; /* Sakura pink color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transition: color 0.3s;
+        }
+
+        h1:hover {
+            color: #FF69B4; /* Hot pink on hover */
+        }
+
+        .video-container {
+            width: 80%;
+            max-width: 900px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #d6336c;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            padding: 10px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .description-container {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(255, 228, 225, 0.85); /* Semi-transparent soft pink */
+            padding: 20px;
+            border: 1px solid #d6336c;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            color: #000;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .description-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        a {
+            color: #d6336c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #8b1a3b;
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #d6336c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #8b1a3b;
+        }
+
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        input[type="range"] {
+            margin-left: 10px;
+            width: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Building High Version GC</h1>
+    <div class="video-container">
+        <video id="videoElement" controls>
+            <source src="./src/high_version_GC/LunaGC.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="description-container">
+        <p>Repository: <a href="https://github.com/Kei-Luna/LunaGC_5.0.0" target="_blank">https://github.com/Kei-Luna/LunaGC_5.0.0</a></p>
+        <p>Resources: <a href="https://github.com/Kei-Luna/LunaGC_Resources_5.0.0" target="_blank">https://github.com/Kei-Luna/LunaGC_Resources_5.0.0</a></p>
+        <p>Please give a star to the Luna GC project by Kei-Luna on GitHub!</p>
+    </div>
+
+    <div class="audio-controls">
+        <p>Music Player</p>
+        <button id="prevButton">Previous</button>
+        <button id="playPauseButton">Play</button>
+        <button id="nextButton">Next</button>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        const audioFiles = [
+            './src/Music/Incarnation.wav',
+            './src/Music/使一颗心免于哀伤-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/在银河中孤独摇摆-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/希望有羽毛和翅膀-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/若我不曾见过太阳-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/萤萤微光-泠鸢yousa.flac'
+        ];
+
+        let currentIndex = 0;
+        const audio = new Audio(audioFiles[currentIndex]);
+        audio.volume = 0.5; // Set default volume
+
+        let isPlaying = false;
+
+        const playPauseButton = document.getElementById('playPauseButton');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const volumeControl = document.getElementById('volumeControl');
+        const videoElement = document.getElementById('videoElement');
+
+        playPauseButton.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playPauseButton.textContent = 'Play';
+            } else {
+                audio.play().catch(error => {
+                    console.error('Audio playback error:', error);
+                });
+                playPauseButton.textContent = 'Pause';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + audioFiles.length) % audioFiles.length;
+            switchTrack();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length;
+            switchTrack();
+        });
+
+        audio.addEventListener('ended', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length;
+            switchTrack();
+        });
+
+        volumeControl.addEventListener('input', (event) => {
+            audio.volume = event.target.value;
+        });
+
+        function switchTrack() {
+            audio.src = audioFiles[currentIndex];
+            audio.play().catch(error => {
+                console.error('Audio playback error:', error);
+            });
+            playPauseButton.textContent = 'Pause';
+            isPlaying = true;
+        }
+
+        // Control audio playback when video plays/pauses
+        videoElement.addEventListener('play', () => {
+            if (isPlaying) {
+                audio.pause();
+                playPauseButton.textContent = 'Play';
+                isPlaying = false;
+            }
+        });
+
+        videoElement.addEventListener('pause', () => {
+            // Optionally resume music when video is paused
+        });
+
+        window.onload = () => {
+            audio.loop = false;
+        };
+    </script>
+</body>
+
+</html>

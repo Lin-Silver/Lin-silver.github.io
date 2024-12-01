@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rilance's Website</title>
+    <link rel="icon" href="./src/DALL-E-Title.webp" type="image/webp">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            background: url('./src/wallpaperflare.com_wallpaper_1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        header h1 {
+            font-size: 3.5em;
+            color: #FFC0CB;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: bounce 2s infinite;
+            transition: color 0.3s, transform 0.3s;
+        }
+        header h1:hover {
+            color: #FF69B4;
+            transform: scale(1.1);
+        }
+        .content {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 1200px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+        }
+        .card-container .card {
+            background: linear-gradient(135deg, #FFC0CB 0%, #FF69B4 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            width: 240px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px;
+            font-size: 1.1em;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-container .card:before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: top 0.5s, left 0.5s;
+            z-index: 1;
+        }
+        .card-container .card:hover:before {
+            top: 0;
+            left: 0;
+        }
+        .card-container .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card-container a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s;
+        }
+        .card-container a:hover {
+            color: #8b1a3b;
+        }
+        footer audio {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        footer audio::-webkit-media-controls-panel {
+            background-color: transparent; 
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card-container .card {
+                width: 200px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Rilance's Website</h1>
+        </header>
+        <section class="content">
+            <div class="card-container">
+                <a href="./LunaGC.html" class="card">Building LunaGC</a>
+                <a href="./Network.html" class="card">NetWork</a>
+                <a href="./GCMods.html" class="card">GC Mods Installation</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <audio id="backgroundMusic" controls>
+            <source src="./src/Music/Incarnation.wav" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioFiles = [
+                './src/Music/Incarnation.wav',
+                './src/Music/使一颗心免于哀伤-知更鸟&HOYO-MiX&Chevy.flac',
+                './src/Music/在银河中孤独摇摆-知更鸟&HOYO-MiX&Chevy.flac',
+                './src/Music/希望有羽毛和翅膀-知更鸟&HOYO-MiX&Chevy.flac',
+                './src/Music/若我不曾见过太阳-知更鸟&HOYO-MiX&Chevy.flac',
+                './src/Music/萤萤微光-泠鸢yousa.flac'
+            ];
+            let currentIndex = 0;
+            const audio = document.getElementById('backgroundMusic');
+            audio.volume = 0.5;
+
+            function switchTrack() {
+                audio.src = audioFiles[currentIndex];
+                audio.play().catch(error => console.error('Audio playback error:', error));
+            }
+
+            document.getElementById('playPauseButton').addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    this.textContent = 'Pause';
+                } else {
+                    audio.pause();
+                    this.textContent = 'Play';
+                }
+            });
+
+            document.getElementById('prevButton').addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + audioFiles.length) % audioFiles.length;
+                switchTrack();
+            });
+
+            document.getElementById('nextButton').addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % audioFiles.length;
+                switchTrack();
+            });
+
+            audio.addEventListener('ended', () => {
+                currentIndex = (currentIndex + 1) % audioFiles.length;
+                switchTrack();
+            });
+
+            document.getElementById('volumeControl').addEventListener('input', event => {
+                audio.volume = event.target.value;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GC Mods Installation</title>
+    <link rel="icon" href="./src/DALL-E-Title.webp" type="image/webp" sizes="any">
+    <style>
+        body {
+            background-image: url('./src/wallpaperflare.com_wallpaper_2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 3rem;
+            color: #FFC0CB; /* Sakura pink color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transition: color 0.3s;
+        }
+        h1:hover {
+            color: #FF69B4; /* Hot pink on hover */
+        }
+        .video-container {
+            width: 80%;
+            max-width: 900px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #d6336c;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            padding: 10px;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .description-container {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(255, 228, 225, 0.85); /* Semi-transparent soft pink */
+            padding: 20px;
+            border: 1px solid #d6336c;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            color: #000;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .description-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        a {
+            color: #d6336c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #8b1a3b;
+        }
+
+        /* Styling for the volume control */
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="range"] {
+            margin-left: 10px;
+            width: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>GC Mods Installation</h1>
+    <div class="video-container">
+        <video controls id="gc-mods-video">
+            <source src="./src/GC指令应用(下)Mods加装/GC-Command-Application(Part 2)Mod-Installation.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="description-container">
+        <p>GC Mods Installation Guide: Detailed steps on how to install mods for GC Command Applications.</p>
+        <h3>Useful Links:</h3>
+        <ul>
+            <li><a href="https://github.com/jianxingxuejian/grasscutter-tools" target="_blank">Launcher: grasscutter-tools</a></li>
+            <li><a href="https://github.com/master131/ExtremeInjector" target="_blank">Injector: ExtremeInjector</a></li>
+            <li><a href="https://github.com/guided-hacking/GuidedHacking-Injector/releases/tag/4.8" target="_blank">GuidedHacking Injector v4.8</a></li>
+            <li><a href="https://github.com/SilentNightSound/GI-Model-Importer" target="_blank">3Dmigoto GI Model Importer</a></li>
+        </ul>
+    </div>
+
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+        <p>Music Volume</p>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        // List of audio files in the Music directory
+        const audioFiles = [
+            './src/Music/Incarnation.wav',
+            './src/Music/使一颗心免于哀伤-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/在银河中孤独摇摆-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/希望有羽毛和翅膀-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/若我不曾见过太阳-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/萤萤微光-泠鸢yousa.flac'
+        ];
+
+        let currentIndex = 0;
+        const audio = new Audio(audioFiles[currentIndex]);
+
+        // Automatically move to the next audio file when the current one ends
+        audio.addEventListener('ended', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length; // Loop back to the start
+            audio.src = audioFiles[currentIndex];
+            audio.play().catch(error => {
+                console.error('Audio playback error:', error);
+            });
+        });
+
+        // Play audio as soon as the page loads
+        window.onload = () => {
+            audio.loop = false; // Loop through playlist, not individual track
+            audio.play().catch(error => {
+                console.error('Audio playback error:', error);
+            });
+        };
+
+        // Pause audio when video is playing and resume when video is paused
+        const video = document.getElementById('gc-mods-video');
+        video.addEventListener('play', () => {
+            audio.pause();
+        });
+        video.addEventListener('pause', () => {
+            audio.play().catch(error => {
+                console.error('Audio playback error:', error);
+            });
+        });
+
+        // Volume control functionality
+        const volumeControl = document.getElementById('volumeControl');
+        volumeControl.addEventListener('input', (event) => {
+            audio.volume = event.target.value;
+        });
+    </script>
+</body>
+</html>

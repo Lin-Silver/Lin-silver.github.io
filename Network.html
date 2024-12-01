@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Video</title>
+    <link rel="icon" href="./src/DALL-E-Title.webp" type="image/webp" sizes="any">
+    <style>
+        /* General styling for background and layout */
+        body {
+            background-image: url('./src/wallpaperflare.com_wallpaper_2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 3rem;
+            color: #FFC0CB;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transition: color 0.3s;
+        }
+
+        h1:hover {
+            color: #FF69B4;
+        }
+
+        .video-container {
+            width: 80%;
+            max-width: 900px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #d6336c;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .description-container {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(255, 228, 225, 0.85);
+            padding: 20px;
+            border: 1px solid #d6336c;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            color: #000;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .description-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        a {
+            color: #d6336c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #8b1a3b;
+        }
+
+        /* Styling for the audio controls */
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="range"] {
+            width: 100px;
+            cursor: pointer;
+            appearance: none;
+            height: 6px;
+            background: #d6336c;
+            border-radius: 5px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="range"]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Network Overview</h1>
+    <div class="video-container">
+        <video controls id="network-video">
+            <source src="./src/Network/Network - Made with Clipchamp.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="description-container">
+        <p>Clash: <a href="https://github.com/clash-hub/clash_for_windows_pkg/releases/tag/Latest" target="_blank">https://github.com/clash-hub/clash_for_windows_pkg/releases/tag/Latest</a></p>
+        <p>Clash Verge: <a href="https://github.com/clash-verge-rev/clash-verge-rev" target="_blank">https://github.com/clash-verge-rev/clash-verge-rev</a></p>
+        <p>V2rayN: <a href="https://github.com/2dust/v2rayN" target="_blank">https://github.com/2dust/v2rayN</a></p>
+        <p>V2rayNG: <a href="https://github.com/2dust/v2rayNG" target="_blank">https://github.com/2dust/v2rayNG</a></p>
+        <p>IOS: V2box</p>
+    </div>
+
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+        <p>Music Volume</p>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        // Array of audio files for playback
+        const audioFiles = [
+            './src/Music/Incarnation.wav',
+            './src/Music/使一颗心免于哀伤-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/在银河中孤独摇摆-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/希望有羽毛和翅膀-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/若我不曾见过太阳-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/萤萤微光-泠鸢yousa.flac'
+        ];
+
+        let currentIndex = 0;
+        const audio = new Audio(audioFiles[currentIndex]);
+        let isPlaying = false;
+
+        // Play audio when the page loads
+        window.onload = () => {
+            audio.volume = 0.5;
+            audio.loop = false;
+            audio.play().catch(error => {
+                console.error('Audio playback error:', error);
+            });
+        };
+
+        // Change audio file when the current one ends
+        audio.addEventListener('ended', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length;
+            audio.src = audioFiles[currentIndex];
+            audio.play().catch(error => {
+                console.error('Audio playback error:', error);
+            });
+        });
+
+        // Pause audio when video is playing
+        const video = document.getElementById('network-video');
+        video.addEventListener('play', () => {
+            audio.pause();
+            isPlaying = false;
+        });
+        video.addEventListener('pause', () => {
+            if (!isPlaying) {
+                audio.play().catch(error => {
+                    console.error('Audio playback error:', error);
+                });
+                isPlaying = true;
+            }
+        });
+
+        // Volume control for audio
+        const volumeControl = document.getElementById('volumeControl');
+        volumeControl.addEventListener('input', (event) => {
+            audio.volume = event.target.value;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rilance's Website</title>
+    <link rel="icon" href="./src/DALL-E-Title.webp" type="image/webp">
+    <style>
+        body {
+            background-image: url('./src/wallpaperflare.com_wallpaper_1.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            overflow-x: hidden;
+        }
+
+        main {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 3.5em;
+            color: #FFC0CB;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            transition: color 0.3s, transform 0.3s;
+            animation: bounce 2s infinite;
+        }
+
+        h1:hover {
+            color: #FF69B4;
+            transform: scale(1.1);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #FFC0CB 0%, #FF69B4 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            width: 240px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px;
+            font-size: 1.1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: top 0.5s, left 0.5s;
+            z-index: 1;
+        }
+
+        .card:hover:before {
+            top: 0;
+            left: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #8b1a3b;
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #d6336c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #8b1a3b;
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        input[type="range"] {
+            width: 120px;
+            cursor: pointer;
+            background: #555;
+            border-radius: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 6px;
+            background: #d6336c;
+        }
+
+        input[type="range"]:focus {
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 200px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-7px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Rilance's Website</h1>
+        <div class="container">
+            <div class="card">
+                <a href="./LunaGC.html">Building LunaGC</a>
+            </div>
+            <div class="card">
+                <a href="./Network.html">NetWork</a>
+            </div>
+            <div class="card">
+                <a href="./GCMods.html">GC Mods Installation</a>
+            </div>
+        </div>
+    </main>
+
+    <div class="audio-controls">
+        <button id="prevButton">Previous</button>
+        <button id="playPauseButton">Play</button>
+        <button id="nextButton">Next</button>
+        <label for="volumeControl">Volume</label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        const audioFiles = [
+            './src/Music/Incarnation.wav',
+            './src/Music/使一颗心免于哀伤-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/在银河中孤独摇摆-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/希望有羽毛和翅膀-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/若我不曾见过太阳-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/萤萤微光-泠鸢yousa.flac'
+        ];
+
+        let currentIndex = 0;
+        const audio = new Audio(audioFiles[currentIndex]);
+        audio.volume = 0.5;
+
+        let isPlaying = false;
+
+        const playPauseButton = document.getElementById('playPauseButton');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const volumeControl = document.getElementById('volumeControl');
+
+        playPauseButton.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playPauseButton.textContent = 'Play';
+            } else {
+                audio.play().catch(error => console.error('Audio playback error:', error));
+                playPauseButton.textContent = 'Pause';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + audioFiles.length) % audioFiles.length;
+            switchTrack();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length;
+            switchTrack();
+        });
+
+        audio.addEventListener('ended', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length;
+            switchTrack();
+        });
+
+        volumeControl.addEventListener('input', event => {
+            audio.volume = event.target.value;
+        });
+
+        function switchTrack() {
+            audio.src = audioFiles[currentIndex];
+            audio.play().catch(error => console.error('Audio playback error:', error));
+            playPauseButton.textContent = 'Pause';
+            isPlaying = true;
+        }
+
+        window.onload = () => {
+            audio.loop = false;
+        };
+    </script>
+</body>
+
+</html>
