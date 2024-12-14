@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +8,55 @@
     <link rel="icon" href="./src/DALL-E-Title.webp" type="image/webp">
     <style>
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: #fff;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-            background: url('./src/wallpaperflare.com_wallpaper_1.jpg') no-repeat center center fixed;
+            background-image: url('./src/wallpaperflare.com_wallpaper_1.jpg');
             background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
             overflow-x: hidden;
         }
-        header h1 {
-            font-size: 3.5em;
-            color: #FFC0CB;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            animation: bounce 2s infinite;
-            transition: color 0.3s, transform 0.3s;
-        }
-        header h1:hover {
-            color: #FF69B4;
-            transform: scale(1.1);
-        }
-        .content {
+
+        main {
             background: rgba(0, 0, 0, 0.7);
             padding: 40px;
             border-radius: 20px;
-            max-width: 1200px;
             width: 90%;
+            max-width: 1200px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             animation: fadeIn 1s ease-in-out;
         }
-        .card-container .card {
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 3.5em;
+            color: #FFC0CB;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            transition: color 0.3s, transform 0.3s;
+            animation: bounce 2s infinite;
+        }
+
+        h1:hover {
+            color: #FF69B4;
+            transform: scale(1.1);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
             background: linear-gradient(135deg, #FFC0CB 0%, #FF69B4 100%);
             border-radius: 15px;
             padding: 20px;
@@ -53,7 +69,8 @@
             position: relative;
             overflow: hidden;
         }
-        .card-container .card:before {
+
+        .card:before {
             content: '';
             position: absolute;
             top: -100%;
@@ -65,15 +82,18 @@
             transition: top 0.5s, left 0.5s;
             z-index: 1;
         }
-        .card-container .card:hover:before {
+
+        .card:hover:before {
             top: 0;
             left: 0;
         }
-        .card-container .card:hover {
+
+        .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
         }
-        .card-container a {
+
+        a {
             text-decoration: none;
             color: #fff;
             font-weight: bold;
@@ -82,117 +102,201 @@
             z-index: 2;
             transition: color 0.3s;
         }
-        .card-container a:hover {
+
+        a:hover {
             color: #8b1a3b;
         }
-        footer audio {
+
+        .audio-controls {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background-color: rgba(0, 0, 0, 0.7);
             padding: 15px;
             border-radius: 8px;
+            color: #fff;
             display: flex;
             align-items: center;
             gap: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-        footer audio::-webkit-media-controls-panel {
-            background-color: transparent; 
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #d6336c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
         }
+
+        button:hover {
+            background-color: #8b1a3b;
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        input[type="range"] {
+            width: 120px;
+            cursor: pointer;
+            background: #555;
+            border-radius: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 6px;
+            background: #d6336c;
+        }
+
+        input[type="range"]:focus {
+            outline: none;
+        }
+
         @media (max-width: 768px) {
-            header h1 {
+            h1 {
                 font-size: 2.5em;
             }
-            .card-container {
+
+            .container {
                 flex-direction: column;
                 align-items: center;
             }
-            .card-container .card {
+
+            .card {
                 width: 200px;
             }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-15px); }
-            60% { transform: translateY(-7px); }
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-7px);
+            }
         }
     </style>
 </head>
+
 <body>
     <main>
-        <header>
-            <h1>Rilance's Website</h1>
-        </header>
-        <section class="content">
-            <div class="card-container">
-                <a href="./LunaGC.html" class="card">Building LunaGC</a>
-                <a href="./Network.html" class="card">NetWork</a>
-                <a href="./GCMods.html" class="card">GC Mods Installation</a>
+        <h1>Rilance's Website</h1>
+        <div class="container">
+            <div class="card">
+                <a href="./LunaGC.html">Building LunaGC</a>
             </div>
-        </section>
+            <div class="card">
+                <a href="./Network.html">NetWork</a>
+            </div>
+            <div class="card">
+                <a href="./GCMods.html">GC Mods Installation</a>
+            </div>
+        </div>
     </main>
-    <footer>
-        <audio id="backgroundMusic" controls>
-            <source src="./src/Music/Incarnation.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-        </audio>
-    </footer>
+
+    <div class="audio-controls">
+        <button id="prevButton">Previous</button>
+        <button id="playPauseButton">Play</button>
+        <button id="nextButton">Next</button>
+        <label for="volumeControl">Volume</label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const audioFiles = [
-                './src/Music/Incarnation.mp3',
-                './src/Music/使一颗心免于哀伤-知更鸟&HOYO-MiX&Chevy.mp3',
-                './src/Music/在银河中孤独摇摆-知更鸟&HOYO-MiX&Chevy.mp3',
-                './src/Music/希望有羽毛和翅膀-知更鸟&HOYO-MiX&Chevy.mp3',
-                './src/Music/若我不曾见过太阳-知更鸟&HOYO-MiX&Chevy.mp3',
-                './src/Music/萤萤微光-泠鸢yousa.mp3'
-            ];
-            let currentIndex = 0;
-            const audio = document.getElementById('backgroundMusic');
-            audio.volume = 0.5;
+        const audioFiles = [
+            './src/Music/Incarnation.wav',
+            './src/Music/使一颗心免于哀伤-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/在银河中孤独摇摆-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/希望有羽毛和翅膀-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/若我不曾见过太阳-知更鸟&HOYO-MiX&Chevy.flac',
+            './src/Music/萤萤微光-泠鸢yousa.flac'
+        ];
 
-            function switchTrack() {
-                audio.src = audioFiles[currentIndex];
+        let currentIndex = 0;
+        const audio = new Audio(audioFiles[currentIndex]);
+        audio.volume = 0.5;
+
+        let isPlaying = false;
+
+        const playPauseButton = document.getElementById('playPauseButton');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const volumeControl = document.getElementById('volumeControl');
+
+        playPauseButton.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playPauseButton.textContent = 'Play';
+            } else {
                 audio.play().catch(error => console.error('Audio playback error:', error));
+                playPauseButton.textContent = 'Pause';
             }
-
-            document.getElementById('playPauseButton').addEventListener('click', () => {
-                if (audio.paused) {
-                    audio.play();
-                    this.textContent = 'Pause';
-                } else {
-                    audio.pause();
-                    this.textContent = 'Play';
-                }
-            });
-
-            document.getElementById('prevButton').addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + audioFiles.length) % audioFiles.length;
-                switchTrack();
-            });
-
-            document.getElementById('nextButton').addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % audioFiles.length;
-                switchTrack();
-            });
-
-            audio.addEventListener('ended', () => {
-                currentIndex = (currentIndex + 1) % audioFiles.length;
-                switchTrack();
-            });
-
-            document.getElementById('volumeControl').addEventListener('input', event => {
-                audio.volume = event.target.value;
-            });
+            isPlaying = !isPlaying;
         });
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + audioFiles.length) % audioFiles.length;
+            switchTrack();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length;
+            switchTrack();
+        });
+
+        audio.addEventListener('ended', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length;
+            switchTrack();
+        });
+
+        volumeControl.addEventListener('input', event => {
+            audio.volume = event.target.value;
+        });
+
+        function switchTrack() {
+            audio.src = audioFiles[currentIndex];
+            audio.play().catch(error => console.error('Audio playback error:', error));
+            playPauseButton.textContent = 'Pause';
+            isPlaying = true;
+        }
+
+        window.onload = () => {
+            audio.loop = false;
+        };
     </script>
-</body> 
+</body>
+
 </html>
